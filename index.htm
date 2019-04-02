@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>柔支付网络 RouPay Network</title>
+<link rel="shortcut icon" href="favicon.ico"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta name="description" content="柔支付网络区块链快速秒速确认且可以零手续费的支付技术。">
+<meta name="keywords" content="柔支付网络 RN RouPay 支付 区块链">
+<meta name="author" content="玛雅">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/styles.css" rel='stylesheet' type='text/css' />
+<script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+       
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/select2.css" rel="stylesheet">
+<link href="css/smoothness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/superfish.js"></script>
+
+<script src="js/select2.js"></script>
+
+<script src="js/jquery.parallax-1.1.3.resize.js"></script>
+
+<script src="js/SmoothScroll.js"></script>
+
+<script src="js/jquery.appear.js"></script>
+
+<script src="js/jquery.caroufredsel.js"></script>
+<script src="js/jquery.touchSwipe.min.js"></script>
+
+<script src="js/jquery.ui.totop.js"></script>
+
+<script src="js/script.js"></script>
+<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
+<script type="text/javascript" src="js/qrcode.js"></script>
+<script type="text/javascript">
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+
+function setCookie(c_name,value,expiredays)
+{
+var exdate=new Date()
+exdate.setDate(exdate.getDate()+expiredays)
+document.cookie=c_name+ "=" +escape(value)+
+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+function notifyMe(pics,f,t,nums,danwei,txts) {
+  if (!Notification || navigator.userAgent.toLowerCase().indexOf("qqbrowser") >=0|| navigator.userAgent.toLowerCase().indexOf("msie") >=0|| navigator.userAgent.toLowerCase().indexOf("firefox") >=0|| navigator.userAgent.toLowerCase().indexOf("opera") >=0|| navigator.userAgent.toLowerCase().indexOf("ubrowser") >=0||navigator.userAgent.toLowerCase().indexOf("chrome") == -1) {
+    //alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    return;
+  }else{
+  if (Notification.permission !== "granted"){
+ //  alert('一会儿将弹出询问框，请点击【允许】，即可用右下角产生提醒 '+f+'->'+t+' '+nums+' '+danwei); 
+    Notification.requestPermission();}
+  else {
+	  if(txts=="")
+	  txts="您"+t+"刚通过柔支付收到来自"+f+"的 "+nums+" "+danwei;
+	  
+    var notification = new Notification('RN柔支付温馨提醒', {
+      icon: 'http://roupay.com/images/'+pics+'.png',
+      body: txts,
+    });
+    notification.onclick = function () {
+      window.open("http://roupay.com/");      
+    };    
+  }}
+}
+</script>
+<style>
+.big_xu{ font-size:32px; font-weight:bolder;}
+</style>
+<base target="_blank" />
+<!--start-smoth-scrolling-->
+</head>
+<body>
+<!--start-banner-->
+	<div class="banner banner1" id="home">
+			<div class="header">
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" alt=""></a>
+			</div>
+			<div class="navigation">
+				 <span class="menu"></span> 
+					<ul class="navig">
+						<li><a href="index.htm">首页&nbsp;HOME</a></li><span><img src="images/clk.png" alt="" /></span>
+						<li><a href="http://roupay.com/coins/" class="active">通道&nbsp;PouPay</a></li><span><img src="images/clk.png" alt="" /></span>
+						<li><a href="http://roupaynetwork.com/">网络&nbsp;Network</a></li><span><img src="images/clk.png" alt="" /></span>
+						<li><a href="CN201810260125.6.pdf" title="专利申请受理通知书">专利&nbsp;PATENT</a></li><span><img src="images/clk.png" alt="" /></span>
+						<li><a href="https://github.com/RoupayNetwork">开源&nbsp;Github</a></li><span><img src="images/clk.png" alt="" /></span>
+                        <li><a href="http://roupay.com/api">接口&nbsp;API</a></li>
+					</ul>
+			</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="banner-main">
+				<div class="container">	
+					<div class="banner-top bnr-top">
+						<h2><!--
+<img src="images/slide-3.png" alt="" width="200" />--><strong style="color:#FFF">柔支付RouPay网版 WebApp</strong></h2>
+					</div>
+				</div>
+			</div>
+		</div>	
+	<!-- script-for-menu -->
+		 <script>
+				$("span.menu").click(function(){
+					$(" ul.navig").slideToggle("slow" , function(){
+					});
+				});
+				function onekeyrnget(){
+					axxa=prompt('默认的选项来自动步骤①②③建立柔支付申请，在需要③步骤提交信息？\n 最好请填写自己BTAdz地址（如A6A，若没有可随便写个简单字串作为ID）后点【确认】',getCookie('axxa'));
+          if (axxa!=null && axxa!=""){
+			  setCookie('axxa',axxa,3650);
+			  document.getElementById("stp1").click();
+			  document.getElementById("stp2").click();
+			  setTimeout("yanshi('"+axxa+"')",8000); 
+			 // alert('您好，'+axxa+'，请等待下面'); 
+			  }
+	         else{
+				//  alert('没有设置，请再次点击'); 
+				}
+				}
+		function yanshi(axxa){
+				var myFrame=document.getElementById("qmty").contentWindow;
+			 myFrame.document.getElementById("axxa").value=axxa;
+			 myFrame.document.getElementById("stp3").click();
+			 alert('您好，'+axxa+'，已经提交，可以上面下面进入查看和管理RN通道'); 
+			  }
+			  
+			function onekeyrnfa(){  
+			axxa=prompt('使用柔支付RN向外发币，需要先充币到下方地址？另外有自己的ID建议和收币相同。\n 最好请填写自己BTAdz地址（如A6A，若没有可随便写个简单字串作为ID）后点【确认】',getCookie('axxa'));
+          if (axxa!=null && axxa!=""){
+			document.getElementById("stp1").click();
+			document.getElementById("stp2").click();
+			setTimeout("yanshidz()",3000); 
+			}
+			}
+			function yanshidz(){  
+			var myFrame=document.getElementById("dcqm").contentWindow;
+			dcdz=myFrame.document.getElementById("cbdz").innerHTML;
+			bis=prompt('向下方多重签名地址 '+dcdz+' 存入币可手机钱包扫码或者交易平台提币，然后下面填写减去手续费的币量（例如存入100Doge则填写99较好）然后点击【确认】',0);if (bis!=0 &&bis!=null && bis!=""){
+			document.getElementById('step3').style.display='block';
+			document.getElementById("biadd").value=bis;
+			document.getElementById("sp3").click();
+			}
+			}
+		 </script>
+		 <!-- script-for-menu -->	
+	<!--end-banner-->
+	<!--start-carrer-->
+	<div class="carrer">
+		<div class="container">
+			<div class="carrer-top">
+				<h4>欢迎您，请按步骤①②③建自己柔支付通道<a href="coins/"><span style="color:#06F; text-decoration:none">&lt;管理通道&gt;</span></a><a href="network/"><span style="color:#06F; text-decoration:none"> &lt;网络&gt;</span></a><a href="api/"><span style="color:#06F; text-decoration:none"> &lt;API&gt;</span></a><a href="https://weibo.com/p/1008083e0370242161cde9dbdcd35d92c5ec53/super_index"><span style="color:#06F; text-decoration:none"> &lt;超话&gt;</span></a><a href="https://www.bit.cc/page/personal_column.html?id=563096"><span style="color:#06F; text-decoration:none"> &lt;币论&gt;</span></a></h4>
+			  <h4><span class="animated" style="float:left; margin-top:0px;"><a href="#自动执行步骤按默认为你申请RN收币通道，可进行收币" onClick="onekeyrnget();" target="_self" class="btn-default btn0" style="border-radius:28px;  margin-top:3px;margin-left:3px;"><span class="big_xu">收◎</span>一键申请收币RN通道　</a></span><span class="animated" style="float:right; margin-top:0px;"><a  href="#充值发币到多重签名地址，可申请RN发币通道，可进行发币" onClick="onekeyrnfa();" target="_self" class="btn-default btn0" style="border-radius:28px;  margin-top:3px;margin-left:3px;"><span class="big_xu">发¤</span>一键充币申请发币RN通道　</a></span></h4><br><br>
+
+		  </div>
+			<div class="tabs-box">
+			  <div class="clearfix"></div>
+              <div class="tabs_wrapper tabs1_wrapper">
+      <div class="tabs tabs1">
+        <div class="tabs_tabs tabs1_tabs">
+
+            <ul style="border-top-right-radius:28px; border-top-left-radius:28px;">
+              <li class="active flights"><a href="#tabs-1" style="border-top-right-radius:28px; border-top-left-radius:28px; margin-top:3px;margin-left:3px;">建立柔通道</a></li>
+              <li class="cars"><a href="#tabs-2" style="border-top-right-radius:28px; border-top-left-radius:28px;margin-top:3px;margin-right:3px;">自定义</a></li>
+             <!-- <li class="cruises"><a href="#tabs-3">Cars</a></li>
+              <li class="hotels"><a href="#tabs-4">Cruises</a></li>-->
+            </ul>
+
+        </div>
+        <div class="tabs_content tabs1_content">
+
+            <div id="tabs-1">
+              <form action="javascript:;" class="form1">
+                <div class="row">
+                  <div class="col-sm-4 col-md-4">
+                    <div class="select1_wrapper">
+                      <label>点获随机密钥字串:</label>
+                      <div><script>
+	axxa=getCookie('axxa');
+if (axxa!=null && axxa!="")
+  {st=1;}else{st=0;}
+					  </script><table width="100%" border="1" height="40" bordercolor="#00CC99" style="table-layout:fixed">
+  <tr>
+    <td id="t0" onclick="sjsy(0);" onmouseover="if(st==0)sjsy(0)">&nbsp;</td>
+    <td id="t1" onclick="sjsy(1)" onmouseover="if(st==0)sjsy(1)">&nbsp;</td>
+    <td id="t2" onclick="sjsy(2)" onmouseover="if(st==0)sjsy(2)">&nbsp;</td>
+    <td id="t3" onclick="sjsy(3)" onmouseover="if(st==0)sjsy(3)">&nbsp;</td>
+    <td id="t4" onclick="sjsy(4)" onmouseover="if(st==0)sjsy(4)">&nbsp;</td>
+    <td id="t5" onclick="sjsy(5)" onmouseover="if(st==0)sjsy(5)">&nbsp;</td>
+    <td id="t6" onclick="sjsy(6)" onmouseover="if(st==0)sjsy(6)">&nbsp;</td>
+    <td id="t7" onclick="sjsy(7)" onmouseover="if(st==0)sjsy(7)" style="overflow:hidden;">&nbsp;</td>
+    <td id="t8" onclick="sjsy(8)" onmouseover="if(st==0)sjsy(8)" style="overflow:hidden;">&nbsp;</td>
+    <td id="t9" onclick="sjsy(9)" onmouseover="if(st==0)sjsy(9)" style="overflow:hidden;">&nbsp;</td>
+    <td id="t10" onclick="sjsy(10)" onmouseover="if(st==0)sjsy(10)" style="overflow:hidden;">&nbsp;</td>
+  </tr>
+</table>
+</div><!--<p align="justify">||||||||||||||||||||||||</p>-->
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <div class="input1_wrapper">
+                      <label>结果币地址:</label>
+                      <div class="input1_inner">
+                        <input id="dz" type="text" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <div class="button1_wrapper">
+                      <button id="stp1" type="submit"  onclick="sjsy(-1)" class="btn-default btn-form1-submit"><span class="big_xu">①</span> 点击随机生成加密账户</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div id="tabs-2">
+              <form action="javascript:;" class="form1">
+                <div class="row">
+                  <div class="col-sm-4 col-md-4">
+                    <div class="input1_wrapper">
+                      <label>币地址:</label>
+                      <div class="input1_inner">
+                        <input type="text" id="zdydz" value="" onChange="setCookie('username',this.value,3650);" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="input1_wrapper">
+                      <label>公钥:</label>
+                      <div class="input1_inner">
+                        <input type="text" id="zdygy" value="" onChange="setCookie('gongyao',this.value,3650);" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="input1_wrapper">
+                      <label>私钥:（可选）</label>
+                      <div class="input1_inner">
+                        <input type="text" id="zdysy" value="" onChange="setCookie('siyao',this.value,3650);" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                    <label>备注名:（如A3A）</label>
+                      <div class="input1_inner">
+                        <input type="text" id="zdybz" value="" onChange="setCookie('axxa',this.value,3650);" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="button1_wrapper">
+                      <button type="submit" class="btn-default btn-form1-submit" onClick="window.location.reload();"><span class="big_xu">①</span> 确定信息</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div><script>
+var runstrs="";
+for(i=1;i<=64;i++){	
+	runstrs=""+Math.floor(Math.random()*16).toString(16)+runstrs;
+}
+function getEncoded(pt, compressed) {
+       var x = pt.getX().toBigInteger();
+       var y = pt.getY().toBigInteger();
+       var enc = integerToBytes(x, 32);
+       if (compressed) {
+         if (y.isEven()) {
+           enc.unshift(0x02);
+         } else {
+           enc.unshift(0x03);
+         }
+       } else {
+         enc.unshift(0x04);
+         enc = enc.concat(integerToBytes(y, 32));
+       }
+       return enc;
+}
+function sjsy(wz){
+	if(wz==-1){
+		runstrs="";
+		for(i=1;i<=64;i++){	
+	runstrs=""+Math.floor(Math.random()*16).toString(16)+runstrs;
+	}
+	for(i=0;i<=10;i++)
+	{
+	document.getElementById("t"+i).innerHTML=runstrs.substr(i*6,6).toUpperCase();
+	document.getElementById("t"+i).style.background="#"+runstrs.substr(i*6,6);
+	}
+		}else{
+	suiji="";
+	for(i=1;i<=6;i++){	
+	suiji=suiji+Math.floor(Math.random()*16).toString(16);
+	if(wz==10&&i>3)break;
+	}
+	runstrs=runstrs.substr(0,wz*6)+suiji+runstrs.substr(wz*6+6,63);
+	if(runstrs.toUpperCase()>"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364140")runstrs="0000000000000000000000000000000000000000000000000000000000000000";
+	document.getElementById("t"+wz).innerHTML=suiji.toUpperCase();
+	document.getElementById("t"+wz).style.background="#"+suiji;
+	}
+	
+	var hash = Crypto.util.hexToBytes(runstrs);
+	eckey = new Bitcoin.ECKey(hash);
+	gen_eckey = eckey;
+    gen_compressed =true; //false ;
+    type="";
+	var curve = getSECCurveByName("secp256k1");
+            gen_pt = curve.getG().multiply(eckey.priv);
+			gen_eckey.pub = getEncoded(gen_pt, gen_compressed);
+            gen_eckey.pubKeyHash = Bitcoin.Util.sha256ripe160(gen_eckey.pub);
+	var payload = hash;
+        if (gen_compressed)
+            payload.push(0x01);
+		var sec = new Bitcoin.Address(payload);
+        //sec.version = 0x80;
+		 sec.version = 0x9E;
+		 
+//document.getElementById("siyao").innerHTML=document.getElementById("siyao").innerHTML+'<br><input name="addr" type="text" id="addr" value="私钥：'+sec+'" style="width:80%; background-color:transparent; font-size:12px;font-weight:bold; border-radius:9px; border:0px;text-align:left;" onfocus="this.select()" />';
+
+var addr = new Bitcoin.Address(gen_eckey.pubKeyHash);
+//addr.version =0x00;
+addr.version =0x1E;
+
+if (st==1)
+  {
+	 if(confirm("已经申请 "+axxa+"\n  建议点【取消】以保留信息，尤其尚未备份之前\n  若点击【确认】将刷新Cookies中地址私钥公钥等信息")){
+		 setCookie('suji',runstrs,3650);
+ setCookie('siyao',sec,3650); 
+ setCookie('username',addr,3650); 
+ setCookie('gongyao',Crypto.util.bytesToHex(gen_eckey.pub),3650);}
+ }else{
+	 setCookie('suji',runstrs,3650);
+ setCookie('siyao',sec,3650);
+ setCookie('username',addr,3650); 
+ setCookie('gongyao',Crypto.util.bytesToHex(gen_eckey.pub),3650);
+	 }
+if (st==1 && getCookie('username')!="" && getCookie('suji')!=""){
+	 document.getElementById("dz").value=getCookie('username');
+	 for(i=0;i<=10;i++)
+	{
+	document.getElementById("t"+i).innerHTML="";
+	document.getElementById("t"+i).style.background="#"+getCookie('suji').substr(i*6,6);
+	}
+} else{
+	document.getElementById("dz").value=addr;}
+}
+
+if (st==1 && getCookie('username')!="" && getCookie('gongyao')!=""){
+	 document.getElementById("dz").value=getCookie('username');
+	 document.getElementById("zdydz").value=getCookie('username');
+	 document.getElementById("zdygy").value=getCookie('gongyao');
+	 document.getElementById("zdybz").value=getCookie('axxa');
+}
+//sjsy(-1);
+sss=0;
+</script>
+            <div id="tabs-3">
+              <form action="javascript:;" class="form1">
+                <div class="row">
+                  <div class="col-sm-4 col-md-2">
+                    <div id="btcxz" class="select1_wrapper" style="border-radius:8px;" onMouseMove="this.style.backgroundColor='#BFD'" onMouseOut="if(sss==0)this.style.backgroundColor=''" onClick="sss=1;document.getElementById('dogexz').style.backgroundColor='';document.getElementById('btcs').selected=true;document.getElementById('coinRN').innerHTML='<option id=btcs value=BTC selected>Bitcoin RN</option><option id=doges value=DOGE>Dogecoin RN</option><option id=btcs value=LTC>Litecoin RN</option>';">
+                      <label>&nbsp;比特币RN：</label>
+                      <div><img src="images/btc.png"  height="42"> Bitcoin</div>
+                    </div>
+                  </div>
+                  <div id="dogexz" class="col-sm-4 col-md-2" style="background-color:#BFD; border-radius:8px;" onClick="sss=0;document.getElementById('btcxz').style.backgroundColor='';document.getElementById('dogexz').style.backgroundColor='#BFD';document.getElementById('doges').selected=true;document.getElementById('coinRN').innerHTML='<option id=btcs value=BTC>Bitcoin RN</option><option id=doges value=DOGE selected>Dogecoin RN</option><option id=btcs value=LTC>Litecoin RN</option>';">
+                    <div class="select1_wrapper">
+                      <label>&nbsp;狗狗币RN:</label>
+                      <div>
+                        <img src="images/DOGE.png"  height="42">（默认选择）</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                      <label>&nbsp;各币RN:</label>
+                      <div class="select1_inner">
+                        <select id="coinRN" class="select2 select" style="width: 100%">
+                          <option id="coinxz" value="DOGE">下拉选择币种</option>
+                          <option id="doges" value="DOGE">Dogecoin RN</option>
+                          <option id="btcs" value="BTC">Bitcoin RN</option>
+                          <option value="LTC">Litecoin RN</option>
+                          <option value="BCH">Bitcoin Cash RN</option>
+                          <option value="BTG">Bitcoin Gold RN</option>
+                          <option value="ETH">Ethereum RN</option>
+                          <option value="EOS">EOS RN</option>
+                          <option value="XXX">Other Coins RN</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                   <div class="col-sm-4 col-md-2">
+                    <div class="input1_wrapper"></div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                      <label>柔节点列表选择:</label>
+                      <div class="select1_inner">
+                        <select id="nodes" class="select2 select" style="width: 100%">
+                          <option value="1">默认RN节点1</option>
+                          <option value="2">中等额度RN节点2</option>
+                          <option value="3">较大额度RN节点3</option>
+                          <option value="4">超大额度RN节点4</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                 
+
+
+                  <div class="col-sm-4 col-md-2">
+                    <div class="button1_wrapper">
+                      <button id="stp2" type="submit" class="btn-default btn-form1-submit" onclick="if(document.getElementById('dz').value!=''&&document.getElementById('coinRN').value=='DOGE'){steps('DOGE_'+document.getElementById('nodes').value);notifyMe('DOGE','A1A','A7A',10,'Doge','正建立狗狗币柔支付通道...');}if(document.getElementById('dz').value!=''&&document.getElementById('coinRN').value=='BTC'){steps('BTC_'+document.getElementById('nodes').value);notifyMe('btc','A1A','A7A',10,'Doge','正建立比特币柔支付通道...');}"><span class="big_xu">②</span> 确选币种网关</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div id="step1" style="display:none">
+            <form action="javascript:;" class="form1"><div class="row"><div class="col-sm-2 col-md-4"><strong>多重签名地址</strong></div><div class="col-sm-10 col-md-8"><iframe id="dcqm" src="" width="100%" height="430" frameborder="0"></iframe></div></div></form>
+            </div>
+            <div id="step2" style="display:none">
+            <form action="javascript:;" class="form1"><div class="row"><div class="col-sm-2 col-md-4"><strong>签名同意建立</strong></div><div class="col-sm-10 col-md-8"><iframe id="qmty" src="" width="100%" height="430" frameborder="0"></iframe></div></div></form>
+            </div>
+            <div id="step3" style="display:none">
+            <form action="addroupay.php" class="form1" method="post" onSubmit="if(document.getElementById('biadd').value==''){alert('前方填写扫描二维码转入多重签名地址的币量，注意减去期望手续费');return false;}"><div class="row"><div class="col-sm-4 col-md-2"><strong>提交及审核</strong></div><div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                      【<strong>获取币</strong>】上方框随意填写信息标识，点<span style="color:#360; font-weight:bold;">绿色按钮</span>确认提交申请
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                    
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                    <div class="select1_wrapper">
+                      【<strong>充值币</strong>】向上方二维码转入币输数提交
+                      </div>
+                    </div>
+                <div class="col-sm-4 col-md-2">
+                    <div class="input1_wrapper">
+                      <label><strong>通道币量</strong>(≈充币－手续费)</label>
+                      <div class="input1_inner">
+                        <input type="number" id="biadd" name="biadd" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="button1_wrapper">
+                      <button id="sp3" type="submit" class="btn-default btn-form1-submit"><span class="big_xu">③</span> 币量提交</button>
+                    </div>
+                  </div>
+                    </div>
+                  </form>
+            </div>
+            <script>
+			 function parseBase58Check(address) {
+        var bytes = Bitcoin.Base58.decode(address);
+        var end = bytes.length - 4;
+        var hash = bytes.slice(0, end);
+        var checksum = Crypto.SHA256(Crypto.SHA256(hash, {asBytes: true}), {asBytes: true});
+        if (checksum[0] != bytes[end] ||
+            checksum[1] != bytes[end+1] ||
+            checksum[2] != bytes[end+2] ||
+            checksum[3] != bytes[end+3])
+                throw new Error("Wrong checksum");
+        var version = hash.shift();
+        return [version, hash];
+    }
+
+			function steps(coins){
+				document.getElementById('step1').style.display='block';
+				document.getElementById('dcqm').src="step1.php?coins="+coins+"&pkey="+getCookie('gongyao');
+				setTimeout("step2('"+coins+"')",1000);
+			}
+			function step2(coins){
+				document.getElementById('step2').style.display='block';
+				document.getElementById('qmty').src="step2.php?coins="+coins+"&maddr="+getCookie('maddr')+"&dzhex="+Crypto.util.bytesToHex(parseBase58Check(getCookie('maddr'))[1])+"&redeemScript="+getCookie('redeemScript');
+				setTimeout('step3()',5000);
+			}
+			function step3(){
+				document.getElementById('step3').style.display='block';
+			}
+			</script>
+         
+
+        </div>
+      </div>
+    </div>
+    <div class="clearfix" style="height:90px;"></div>
+<div id="why1">
+  <div class="container">
+
+    <h2 class="animated">柔支付网络优势</h2>
+
+    <div class="title1 animated">
+      <div class="animated" style="float:right; margin-top:0px;">
+          <a href="coins/" target="_self" class="btn-default btn0"><span class="big_xu">※</span>进入管理</a>
+        </div>
+      <p>按上面步骤快速建立通道，或已经加入柔支付网络，点击右方进入管理。</p>
+      <p>若更换浏览器，需要先在上方自定义填写信息。<br>
+若只是查看可以只填写备注名。</p>
+      </div>
+
+    <br><br>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="thumb2 animated" data-animation="flipInY" data-animation-delay="200">
+          <div class="thumbnail clearfix">
+            <a href="#">
+              <figure class="">
+                <img src="images/why1.png" alt="" class="img1 img-responsive">
+                <img src="images/why1_hover.png" alt="" class="img2 img-responsive">
+              </figure>
+              <div class="caption">
+                <div class="txt1">极速&amp;零手续费</div>
+                <div class="txt2">转账可以实现秒速到账且零手续费!在落地性和实用性方面媲美闪电网络。</div>
+                <div class="txt3">Read More</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="thumb2 animated" data-animation="flipInY" data-animation-delay="300">
+          <div class="thumbnail clearfix">
+            <a href="#">
+              <figure class="">
+                <img src="images/why2.png" alt="" class="img1 img-responsive">
+                <img src="images/why2_hover.png" alt="" class="img2 img-responsive">
+              </figure>
+              <div class="caption">
+                <div class="txt1">扩展性强</div>
+                <div class="txt2">作为一个区块链支付底层平台，可以衍生出诸多的商业方案，具有极大的拓展性和可编程性。</div>
+                <div class="txt3">Read More</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="thumb2 animated" data-animation="flipInY" data-animation-delay="400">
+          <div class="thumbnail clearfix">
+            <a href="#">
+              <figure class="">
+                <img src="images/why3.png" alt="" class="img1 img-responsive">
+                <img src="images/why3_hover.png" alt="" class="img2 img-responsive">
+              </figure>
+              <div class="caption">
+                <div class="txt1">可极高并发</div>
+                <div class="txt2">支付网络使用链下清算的方式实现，不需必须上链，可很多个平行进行，即可高并发。</div>
+                <div class="txt3">Read More</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="thumb2 animated" data-animation="flipInY" data-animation-delay="500">
+          <div class="thumbnail clearfix">
+            <a href="#">
+              <figure class="">
+                <img src="images/why4.png" alt="" class="img1 img-responsive">
+                <img src="images/why4_hover.png" alt="" class="img2 img-responsive">
+              </figure>
+              <div class="caption">
+                <div class="txt1">通用安全</div>
+                <div class="txt2">去中心化保管用户资产、绝对安全。另可在已经有签名前提下，一定程度找回丢失私钥的币。</div>
+                <div class="txt3">Read More</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+		  </div>
+		</div>
+	</div>
+	<!--start-carrer-->
+	<!----- Comman-js-files ----->
+		<script>
+			$(document).ready(function() {
+				$("#tab2").hide();
+				$("#tab3").hide();
+				$(".tabs-menu a").click(function(event){
+					event.preventDefault();
+					var tab=$(this).attr("href");
+					$(".tab-grid").not(tab).css("display","none");
+					$(tab).fadeIn("slow");
+				});
+			});
+		</script>
+		<!----- Comman-js-files ----->
+	<!--start-footer-->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-main">
+				<div class="contact">
+					<div class="col-md-8 contact-left">
+						<a href="index.html"><img src="images/logo-2.png" alt="" /></a>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;欢迎大家加入柔支付网络。2016年11月<a href="https://www.8btc.com/article/108390">柔支付通道白皮书文章</a>。英文RouPay Network，缩写RN，和知名闪电网络Lighting Network缩写LN相呼应。他们都是基于在主链上靠签名重新分配多重签名分配币的快速秒速支付二层网络。RN优势是原理更简洁，仅需多重签名和时间戳，不需SW隔离验证，支持币种更多。<strong>未来RN发展规划蓝图</strong><a href="https://weibo.com/5298252779/HnEQDxMxC">见链接</a> 和 <a href="https://www.bit.cc/page/article.html?id=131900">币论链接</a>。</p>
+                        <!--<p>Welcome to join in RouPay Network.</p>-->
+					</div>
+                    <div class="col-md-2 contact-right">
+						<h3>微博<a href="https://weibo.com/jdoge">@Jdoge</a></h3>
+						<p><a href="https://weibo.com/jdoge"><img src="http://qr.liantu.com/api.php?text=https://weibo.com/jdoge" width="120"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+					</div>
+					<div class="col-md-2 contact-right">
+						<h3>微信WeiXin</h3>
+						<p><img src="http://btcall.org/all/qrs1.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="footer-bottom">
+					<div class="col-md-4 footer-left">
+						<ul>
+							<li><a href="https://mobile.twitter.com/XCoinPay2017"><span class="twit"> </span></a></li>
+                            <li><a href="https://www.facebook.com/xcoinpayofficial/"><span class="fb"> </span></a></li>
+							<li><a href="https://github.com/RoupayNetwork"><span class="sky"> </span></a></li>
+						</ul>
+					</div>
+					<div class="col-md-4 footer-middle">
+						<p>Copyright &copy; 2016-2019 RouPay.com</p>
+					</div>
+					<div class="col-md-4 footer-right">
+						<p><a href="#home" class="scroll" target="_self"></a></p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div><DIV style="DISPLAY: none" id=the_baidu>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe01b40878de0f7a53447138d441d4ddf' type='text/javascript'%3E%3C/script%3E"));
+</script></DIV>
+	<!--end-footer-->
+</body>
+</html>
