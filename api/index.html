@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="favicon.ico"/>
+
+    <title>柔支付网络API.RouPay.com</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mars"></div>
+    <img src="meteor.svg" class="meteor" />
+    <!--<p class="title">RouPay.com/API</p>-->
+    <p class="subtitle"><br>
+        柔支付网络 Roupay Network
+    </p>
+	<p  class="subtitle">
+        api/multisigaddress
+		  <a href="http://roupay.com/api/multisigaddress/?coin_channel=Doge_1&public_key=03731892b99b2409d2779e2f9a4b17b0fe1729c08a4eaed13e4beb8aa076940b1b"><span style="color:#66DD66">实例链接</span></a>
+		  <span style="font-size:16px;"><br><b>输入</b>：coin_channel 币类和序号如"Doge_1"  public_key 自己公钥字串
+		  <br><b>输出</b>：由上面public_key与网关公钥形成的 maddress 两多重签名地址
+</span><br>
+        api/locktimebacksig	  <a href="http://roupay.com/api/locktimebacksig/?coin_channel=doge_2&public_key=03731892b99b2409d2779e2f9a4b17b0fe1729c08a4eaed13e4beb8aa076940b1b"><span style="color:#66DD66">实例链接</span></a>
+		 <span style="font-size:16px;">
+		 <br><b>输入</b>：coin_channel 币类和序号   public_key 自己公钥字串
+		 <br><b>输出</b>：raw签名交易 等待自签名coincli_exe字串</span>
+    </p>
+    <div align="center">
+        <a class="btn-back" href="http://roupay.com">柔支付网络</a>
+    </div>
+    <img src="astronaut.svg" class="astronaut" />
+    <img src="spaceship.svg" class="spaceship" />
+
+
+    <script src="index.js"></script>
+
+</body>
+</html>
