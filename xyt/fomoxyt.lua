@@ -61,25 +61,38 @@ Send = function()
 	local Fomoaddress="wWFomooooooooooooXYToooooooopkkWzy"
 	local curaddr = _G._C.GetCurTxAddr()
 	local valueTbl = _G.AppData.Read("plist")
-	local pstrs=Fomoaddress.."|10000|"..Evenaddress.."|1000"
-	if #valueTbl ~= 0 then  --bb
+	local pstrs=_G.Config.owner.."|10000|3|".._G.Config.owner.."|1000|6"
+	if #valueTbl ~= 0 then  --bbbbb
 		pstrs=_G.Hex.ToString(valueTbl)
 	end
 	local pstr=Split(pstrs,"|")
-	Log(pstr[3]..","..math.floor(pstr[4]))
-	_G.Asset.SendAppAsset(_G.Config.owner,pstr[3],math.floor(pstr[4]))
+	local paibi=math.floor(pstr[5])
+	if paibi~=1000 then
+	_G.Asset.SendAppAsset(Fomoaddress,pstr[4],paibi)
+	end
 	_G.ERC20MK.Transfer()
 	if tx.addr==Fomoaddress then
 		maxnow=math.floor(pstr[2])
-		if tx.money>maxnow and tx.money<maxnow*1.2 then--and curaddr~=pstr[1]
+		local blkts=_G.mylib.GetBlockTimestamp(0)
+		local blasts=blkts
+		local valueTbl = _G.AppData.Read("blast")
+		if #valueTbl ~= 0 then
+			blasts=_G.Hex.ToInt(valueTbl)
+		end
+		if blkts<=blasts and (maxnow==10000 or (tx.money>maxnow and tx.money<=maxnow*10)) then
 			_G.RoupayXYT.AddXYT(curaddr,tx.money)
-			_G.RoupayXYT.SetLast(100)
-			Log("Add New "..curaddr..","..tx.money)
+			if blasts-blkts<=600 then
+			_G.RoupayXYT.SetLast(600)
+			end
 			else
-			_G.Asset.SendAppAsset(pstr[3],_G.Config.owner,math.floor(pstr[4]))
+			if paibi~=1000 then
+			_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
+			end
 		end
 		else
-		_G.Asset.SendAppAsset(pstr[3],_G.Config.owner,math.floor(pstr[4]))
+		if paibi~=1000 then
+		_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
+		end
 	end	
 	if tx.w==1140856560 and curaddr==_G.Config.owner then
 		_G.Asset.SendAppAsset(tx.addr,_G.Config.owner,2*tx.money)
@@ -117,20 +130,23 @@ Even= function(ns)
 	Log(Logstr..'"newEven":"'..(ns/100)..'","newby":"'..curaddr..'","max":"'..(evenmax/100)..'"}')
 end,
 AddXYT= function(addr,bis)
+	local ts = _G.mylib.GetBlockTimestamp(0)
 	local curaddr = _G._C.GetCurTxAddr()
-	local pstrs=_G.Config.owner.."|1000"
+	local pstrs=_G.Config.owner.."|1000|"..ts
 	local valueTbl = _G.AppData.Read("plist")
-	if #valueTbl ~= 0 then--bb
+	if #valueTbl ~= 0 then--bbbbb
 		pstrs=_G.Hex.ToString(valueTbl)
 	end
 	if addr~=nil and curaddr~=_G.Config.owner then
-	pstrs=addr.."|"..bis.."|"..pstrs
+	pstrs=addr.."|"..bis.."|"..ts.."|"..pstrs
 	else
-		local backs=_G.Hex:New(contract):Fill({"w",4,"addr","34","money",8})
+		if curaddr==_G.Config.owner then
+		local backs=_G.Hex:New(contract):Fill({"w",4,"addr","34","money",8,"tms",8})
 		if backs.money==0 then
-			pstrs=_G.Config.owner.."|1"
+			pstrs=_G.Config.owner.."|1000|"..ts
 			else
-			pstrs=backs.addr.."|"..backs.money.."|"..pstrs
+			pstrs=backs.addr.."|"..backs.money.."|"..backs.tms.."|"..pstrs
+		end
 		end
 	end
 	Log("pstrs='"..pstrs.."'")
@@ -138,17 +154,19 @@ AddXYT= function(addr,bis)
 end,
 SetLast= function(addblk)
 	local curaddr = _G._C.GetCurTxAddr()
-	local blasts=123456
+	local blasts=_G.mylib.GetBlockTimestamp(0)
 	local valueTbl = _G.AppData.Read("blast")
 	if #valueTbl ~= 0 then
 		blasts=_G.Hex.ToInt(valueTbl)
 	end	
-	if addblk~=nil and curaddr~=_G.Config.owner then
+	if addblk~=nil then
 	blasts=blasts+addblk
 	else
-	contract[1]=0
-	contract[2]=0
+	if curaddr==_G.Config.owner then
+		contract[1]=0
+		contract[2]=0
 		blasts=math.floor(_G.Hex.ToInt(contract)/65536)
+		end
 	end
 	Log("SetLast='"..blasts.."'")
 	_G.AppData.Write("blast",blasts)
@@ -208,18 +226,16 @@ end
 _G.Context.Main()
 end
 Main()
---[[------------test-------------   _G.RoupayXYT.Even
+--[[-----------test-------------   _G.RoupayXYT.Even
 contracts={"f0110000"
-,"f01600007757774576656e77777777777777585954777777777777777763616e6336754239350040075af0750700"
-,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000"
+,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b0010a5d4e8000000" --正常发币发10000 XYT给地址
+--,"f0110000f0" --换地址查询下 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK 上的可用币量
+,"f036c0b14e5d0000" --设置竞拍初始截止时间戳  8月10日晚8:00 1565438400 只能由owner直接指定
+,"f03300007757774576656e77777777777777585954777777777777777763616e633675423935102700000000000010814a5d00000000" --直接设首个起时拍卖AddXYT 不能Fomoaddress 数量10000则下个随意
+,"f03800f0" --显示信息  切换竞拍的账户
+,"f01600007757466f6d6f6f6f6f6f6f6f6f6f6f6f6f5859546f6f6f6f6f6f6f6f706b6b577a7900c817a804000000"  --发200 XYT到 wWFomooooooooooooXYToooooooopkkWzy
+,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000" --猜偶wWwEvenwwwwwwwXYTwwwwwwwwcanc6uB95
 ,"f02200001100000000000000"}
---[[------------test-------------  _G.RoupayXYT.Tips
-contracts={"f0110000"
-,"f0160000774b6f6e67546f7577777777777742544177777777777763616e647a314a5a6a554400e9a43500000000"
-,"f0332c010000"
-,"f0362c01775753653131777777777777777742544177777777777777777777775a657632485140420f00000000002c010100"
-,"f037","f038"}
---]-]
 for k=1,#contracts do
 	contract={}
 	for i=1,#contracts[k]/2 do
