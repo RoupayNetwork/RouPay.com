@@ -62,7 +62,7 @@ Send = function()
 	local curaddr = _G._C.GetCurTxAddr()
 	local valueTbl = _G.AppData.Read("plist")
 	local pstrs=_G.Config.owner.."|10000|3|".._G.Config.owner.."|1000|6"
-	if #valueTbl ~= 0 then  --test use ==
+	if #valueTbl ~= 0 then  --test ==
 		pstrs=_G.Hex.ToString(valueTbl)
 	end
 	local pstr=Split(pstrs,"|")
@@ -75,7 +75,7 @@ Send = function()
 		local addone = 499900000000
 		local tpx = 5.01
 		local addtimes = 600
-		local zq = 24*60*60
+		local zq=87010 --24*60*60+addtimes
 		local top=math.floor(pstr[2])
 		if top < addone*9 then
 			top=addone*9
@@ -247,14 +247,14 @@ end
 _G.Context.Main()
 end
 Main()
---[[------------test-------------
+--[[-------test--www.fomoxyt.com--xyt-0.02btc--20190809-----------------
 contracts={"f0110000"
 ,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b00385909d8500000" --正常发币发888888 XYT给 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK
-,"f036c0b14e5d0000" --设置竞拍初始的截止时间戳 开始为一天前  8月10日晚8:00 1565438400  8月9日晚7:00->  f03630524d5d0000 只能由owner直接指定
+,"f03618b44e5d0000" --设置竞拍初始的截止时间戳 开始为一天前  8月10日20:10 1565439000  8月9日20:00->  f03640604d5d0000 只能由owner直接指定
 ,"f033000077585974624c77773165564241397974556e6b5058516d4e6a6f4756334875465273102700000000000040604d5d00000000" --设首拍卖不能Fomoaddress数量须10000下可随意高
 ,"f03800f0" --显示当前地竞拍信息 币量，时间和排名     可切换到竞拍的账户
 ,"f01600007757466f6d6f6f6f6f6f6f6f6f6f6f6f6f5859546f6f6f6f6f6f6f6f706b6b577a79005039278c040000" --启动拍发50000 XYT到 wWFomooooooooooooXYToooooooopkkWzy
-,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000" --猜偶wWwEvenwwwwwwwXYTwwwwwwwwcanc6uB95（目前禁用）
+,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000" --猜偶wWwEvenwwwwwwwXYTwwwwwwwwcanc6uB95
 ,"f02200001100000000000000"}
 for k=1,#contracts do
 	contract={}
