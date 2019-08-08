@@ -67,13 +67,13 @@ Send = function()
 	end
 	local pstr=Split(pstrs,"|")
 	local paibi=math.floor(pstr[5])
-	if paibi~=1000 then
+	if _G.Config.owner~=pstr[4] then
 	_G.Asset.SendAppAsset(Fomoaddress,pstr[4],paibi)
 	end
 	_G.ERC20MK.Transfer()
 	if tx.addr==Fomoaddress then
-		local addone = 500000000000
-		local tpx = 5
+		local addone = 499900000000
+		local tpx = 5.01
 		local addtimes = 600
 		local zq = 24*60*60
 		local top=math.floor(pstr[2])
@@ -92,13 +92,13 @@ Send = function()
 			_G.RoupayXYT.SetLast(addtimes)
 			end
 			else
-			if paibi~=1000 then
-			_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
-			end
 			_G.Asset.SendAppAsset(Fomoaddress,curaddr,tx.money)
+			if _G.Config.owner~=pstr[4] then
+			_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
+			end			
 		end
 		else
-		if paibi~=1000 then
+		if _G.Config.owner~=pstr[4] then
 		_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
 		end
 	end	
