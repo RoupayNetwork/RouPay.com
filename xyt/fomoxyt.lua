@@ -62,7 +62,7 @@ Send = function()
 	local curaddr = _G._C.GetCurTxAddr()
 	local valueTbl = _G.AppData.Read("plist")
 	local pstrs=_G.Config.owner.."|10000|3|".._G.Config.owner.."|1000|6"
-	if #valueTbl ~= 0 then  --bbbbb
+	if #valueTbl == 0 then  --test use ==
 		pstrs=_G.Hex.ToString(valueTbl)
 	end
 	local pstr=Split(pstrs,"|")
@@ -72,22 +72,29 @@ Send = function()
 	end
 	_G.ERC20MK.Transfer()
 	if tx.addr==Fomoaddress then
-		maxnow=math.floor(pstr[2])
+		local addone = 500000000000
+		local tpx = 5
+		local addtimes = 600
+		local top=math.floor(pstr[2])
+		if top < addone*9 then
+			top=addone*9
+		end
 		local blkts=_G.mylib.GetBlockTimestamp(0)
 		local blasts=blkts
 		local valueTbl = _G.AppData.Read("blast")
 		if #valueTbl ~= 0 then
 			blasts=_G.Hex.ToInt(valueTbl)
 		end
-		if blkts<=blasts and (maxnow==10000 or (tx.money>maxnow and tx.money<=maxnow*10)) then
+		if curaddr~=pstr[1] and blkts<=blasts and (top==10000 or (tx.money>=top+addone and tx.money<=top*tpx)) then
 			_G.RoupayXYT.AddXYT(curaddr,tx.money)
-			if blasts-blkts<=600 then
-			_G.RoupayXYT.SetLast(600)
+			if blasts-blkts<=addtimes then
+			_G.RoupayXYT.SetLast(addtimes)
 			end
 			else
 			if paibi~=1000 then
 			_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
 			end
+			_G.Asset.SendAppAsset(Fomoaddress,curaddr,tx.money)
 		end
 		else
 		if paibi~=1000 then
@@ -134,11 +141,12 @@ AddXYT= function(addr,bis)
 	local curaddr = _G._C.GetCurTxAddr()
 	local pstrs=_G.Config.owner.."|1000|"..ts
 	local valueTbl = _G.AppData.Read("plist")
-	if #valueTbl ~= 0 then--bbbbb
+	if #valueTbl ~= 0 then
 		pstrs=_G.Hex.ToString(valueTbl)
 	end
 	if addr~=nil and curaddr~=_G.Config.owner then
-	pstrs=addr.."|"..bis.."|"..ts.."|"..pstrs
+		pstrs=addr.."|"..bis.."|"..ts.."|"..pstrs
+		pstrs=addstr(pstrs)
 	else
 		if curaddr==_G.Config.owner then
 		local backs=_G.Hex:New(contract):Fill({"w",4,"addr","34","money",8,"tms",8})
@@ -179,6 +187,19 @@ ShowNews= function()
 	Log('alls={"XYT":"'..xyt..'","blast":"'..blast..'","plist":"'..plist..'"}')
 end
 }
+function addstr(pstrs)
+	local pstr=Split(pstrs,"|")
+	local strs=pstr[1].."|"..pstr[2].."|"..pstr[3]
+	for i=4,#pstr,3 do
+		if i>24 then
+			break
+		end
+		if string.find(strs,pstr[i])==nil then
+		strs=strs.."|"..pstr[i].."|"..pstr[i+1].."|"..pstr[i+2]
+		end	
+	end
+	return strs
+end
 function Split(szFullString, szSeparator)  
 local nFindStartIndex = 1  
 local nSplitIndex = 1  
@@ -195,7 +216,6 @@ while true do
 end
 return nSplitArray  
 end
-
 Main = function()
 addMKcode(MK_G_Context_Init)
 addMKcode(MK_G_Hex)
@@ -226,15 +246,14 @@ end
 _G.Context.Main()
 end
 Main()
---[[-----------test-------------   _G.RoupayXYT.Even
+--[[------------test-------------
 contracts={"f0110000"
-,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b0010a5d4e8000000" --正常发币发10000 XYT给地址
---,"f0110000f0" --换地址查询下 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK 上的可用币量
-,"f036c0b14e5d0000" --设置竞拍初始截止时间戳  8月10日晚8:00 1565438400 只能由owner直接指定
-,"f03300007757774576656e77777777777777585954777777777777777763616e633675423935102700000000000010814a5d00000000" --直接设首个起时拍卖AddXYT 不能Fomoaddress 数量10000则下个随意
-,"f03800f0" --显示信息  切换竞拍的账户
-,"f01600007757466f6d6f6f6f6f6f6f6f6f6f6f6f6f5859546f6f6f6f6f6f6f6f706b6b577a7900c817a804000000"  --发200 XYT到 wWFomooooooooooooXYToooooooopkkWzy
-,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000" --猜偶wWwEvenwwwwwwwXYTwwwwwwwwcanc6uB95
+,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b00385909d8500000" --正常发币发888888 XYT给 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK
+,"f036c0b14e5d0000" --设置竞拍初始的截止时间戳  8月10日晚8:00 1565438400  8月9日晚9:00->  f036506e4d5d0000 只能由owner直接指定
+,"f033000077585974624c77773165564241397974556e6b5058516d4e6a6f4756334875465273102700000000000040604d5d00000000" --设首拍卖不能Fomoaddress数量须10000下可随意高
+,"f03800f0" --显示当前地竞拍信息 币量，时间和排名     可切换到竞拍的账户
+,"f01600007757466f6d6f6f6f6f6f6f6f6f6f6f6f6f5859546f6f6f6f6f6f6f6f706b6b577a79005039278c040000" --启动拍发50000 XYT到 wWFomooooooooooooXYToooooooopkkWzy
+,"f01600007757774576656e77777777777777425441777777777777777763616e62484a6b695900e40b5402000000" --猜偶wWwEvenwwwwwwwXYTwwwwwwwwcanc6uB95（目前禁用）
 ,"f02200001100000000000000"}
 for k=1,#contracts do
 	contract={}
