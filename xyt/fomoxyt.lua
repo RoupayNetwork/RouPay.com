@@ -67,11 +67,15 @@ Send = function()
 	end
 	local pstr=Split(pstrs,"|")
 	local paibi=math.floor(pstr[5])
-	if _G.Config.owner~=pstr[4] then
-	_G.Asset.SendAppAsset(Fomoaddress,pstr[4],paibi)
+	if pstr[4]~=curaddr or _G.Config.owner == curaddr then
+		_G.ERC20MK.Transfer()
+	else
+		tx=_G.Hex:New(contract):Fill({"w",4,"addr","34","money",8})
+		if tx.addr==Fomoaddress then
+			_G.Asset.SendAppAsset(curaddr,tx.addr,tx.money-paibi)
+		end
 	end
-	_G.ERC20MK.Transfer()
-	if tx.addr==Fomoaddress then
+	if tx.addr==Fomoaddress  and curaddr~=_G.Config.owner then
 		local addone = 499900000000
 		local tpx = 5.01
 		local addtimes = 600
@@ -87,19 +91,28 @@ Send = function()
 			blasts=_G.Hex.ToInt(valueTbl)
 		end
 		if curaddr~=pstr[1] and blkts<=blasts and blkts>blasts-zq and (top==10000 or (tx.money>=top+addone and tx.money<=top*tpx)) then
+			if pstr[4]~=curaddr and pstr[4]~=_G.Config.owner then
+				_G.Asset.SendAppAsset(Fomoaddress,pstr[4],paibi)
+			end
 			_G.RoupayXYT.AddXYT(curaddr,tx.money)
 			if blasts-blkts<=addtimes then
 			_G.RoupayXYT.SetLast(addtimes)
 			end
 			else
-			_G.Asset.SendAppAsset(Fomoaddress,curaddr,tx.money)
-			if _G.Config.owner~=pstr[4] then
-			_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
-			end			
-		end
-		else
-		if _G.Config.owner~=pstr[4] then
-		_G.Asset.SendAppAsset(pstr[4],Fomoaddress,paibi)
+			local estrs="Sorry Not Right :"
+			if curaddr==pstr[1] then
+			estrs=estrs.." Your already at First Place"
+			end
+			if blkts>blasts or blkts<=blasts-zq then
+			estrs=estrs.." Not at Right Time "
+			end
+			if tx.money<top+addone then
+			estrs=estrs.." BiJingPai XYT too Small"
+			end
+			if tx.money>top*tpx then
+			estrs=estrs.." BiJingPai XYT too Big"
+			end
+			error(estrs)
 		end
 	end	
 	if tx.w==1140856560 and curaddr==_G.Config.owner then
@@ -247,9 +260,9 @@ end
 _G.Context.Main()
 end
 Main()
---[[-------test--www.fomoxyt.com--xyt-0.02btc--20190809-----------------
+--[[-------test--www.fomoxyt.com--xyt-0.02btc--2019-08-09 20:00-----------------
 contracts={"f0110000"
-,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b00385909d8500000" --正常发币发888888 XYT给 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK
+,"f01600007753355a6564477671554d6e6164783365724c4d644d57703869573561394b6a664b00385909d850000000" --正常发币发888888 XYT给 wS5ZedGvqUMnadx3erLMdMWp8iW5a9KjfK
 ,"f03618b44e5d0000" --设置竞拍初始的截止时间戳 开始为一天前  8月10日20:10 1565439000  8月9日20:00->  f03640604d5d0000 只能由owner直接指定
 ,"f033000077585974624c77773165564241397974556e6b5058516d4e6a6f4756334875465273102700000000000040604d5d00000000" --设首拍卖不能Fomoaddress数量须10000下可随意高
 ,"f03800f0" --显示当前地竞拍信息 币量，时间和排名     可切换到竞拍的账户
